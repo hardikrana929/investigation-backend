@@ -1,0 +1,16 @@
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const cases = require('./routes/cases');
+const { notFound, errors } = require('./middleware/errors');
+const app = express();
+const allowed = (process.env.CLIENT_ORIGIN || 'http://localhost:5173').split(',').map(x => x.trim());
+app.disable('x-powered-by');
+app.use(helmet());
+app.use(cors({ origin: (origin, cb) => !origin || allowed.includes(origin) ? cb(null, true) : cb(new Error('Origin not allowed')) }));
+app.use(express.json({ limit: '16kb' }));
+app.get('/api/health', (req, res) => res.json({ status: 'ok', database: require('mongoose').connection.readyState === 1 ? 'connected' : 'disconnected' }));
+app.use('/api/cases', cases);
+app.use(notFound);
+app.use(errors);
+module.exports = app;
