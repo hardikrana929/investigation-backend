@@ -9,6 +9,7 @@ app.disable('x-powered-by');
 app.use(helmet());
 app.use(cors({ origin: (origin, cb) => !origin || allowed.includes(origin) ? cb(null, true) : cb(new Error('Origin not allowed')) }));
 app.use(express.json({ limit: '16kb' }));
+app.get('/', (req, res) => res.json({ status: 'ok', service: 'AI Investigation Room API', health: '/api/health' }));
 app.get('/api/health', (req, res) => res.json({ status: 'ok', database: require('mongoose').connection.readyState === 1 ? 'connected' : 'disconnected' }));
 app.use('/api/cases', cases);
 app.use(notFound);

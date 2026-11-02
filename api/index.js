@@ -7,7 +7,7 @@ module.exports = async function handler(req, res) {
   try {
     const url = new URL(req.url, 'http://localhost');
     const path = url.searchParams.get('path');
-    if (path) {
+    if (path !== null) {
       url.searchParams.delete('path');
       req.url = `/${path}${url.search}`;
     }
