@@ -63,3 +63,17 @@ git push
 ```
 
 Do not commit `.env`, `node_modules`, or any API keys and database credentials.
+
+## Vercel deployment
+
+Create a separate Vercel project for the API and set its **Root Directory** to `server`. This deploys `api/index.js` as the serverless entry point and routes API requests through Express.
+
+Add these environment variables in the Vercel project settings:
+
+```text
+MONGODB_URI=<your MongoDB Atlas connection string>
+GEMINI_API_KEY=<your Gemini API key>
+CLIENT_ORIGIN=https://your-frontend.vercel.app
+```
+
+After deployment, verify `https://your-server.vercel.app/api/health`. Set the frontend project's `VITE_API_BASE_URL` to `https://your-server.vercel.app/api`, then redeploy the frontend.
