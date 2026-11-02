@@ -76,4 +76,4 @@ GEMINI_API_KEY=<your Gemini API key>
 CLIENT_ORIGIN=https://your-frontend.vercel.app
 ```
 
-After deployment, verify `https://your-server.vercel.app/api/health`. Set the frontend project's `VITE_API_BASE_URL` to `https://your-server.vercel.app/api`, then redeploy the frontend.
+After deployment, verify `https://your-server.vercel.app/api/health`. Set the frontend project's `VITE_API_BASE_URL` to `https://your-server.vercel.app/api`, including both `https://` and `/api`, then redeploy the frontend.
